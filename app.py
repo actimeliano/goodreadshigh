@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request, jsonify
+from flask_socketio import SocketIO
 import sqlite3
-from extract_goodreads_quotes import init_db, extract_and_save_highlights
+from extract_goodreads_quotes import init_db, extract_and_save_highlights, socketio
 import threading
 
 app = Flask(__name__)
+socketio.init_app(app)
 progress = "Not started"
 reextract_options = ""
+skipped_books = []
 
 # Function to get database connection
 def get_db_connection():
@@ -65,16 +68,19 @@ def book():
 # Start extraction route
 @app.route('/start_extraction', methods=['POST'])
 def start_extraction():
-    global progress, reextract_options
+    global progress, reextract_options, skipped_books
     link = request.form['link']
     progress = "Extraction started..."
     reextract_options = ""
+    skipped_books = []
     
     def extraction_thread():
-        global progress, reextract_options
+        global progress, reextract_options, skipped_books
         init_db()
-        extract_and_save_highlights(link)
+        skipped_books = extract_and_save_highlights(link)
         progress = "Extraction completed."
+        if not skipped_books:
+            socketio.emit('log', {'message': "No books to extract quotes."})
         # Generate re-extraction options (this is a placeholder)
         reextract_options = "<button class='reextract' data-title='Book Title'>Re-extract Book Title</button>"
     
@@ -86,7 +92,7 @@ def start_extraction():
 # Check progress route
 @app.route('/check_progress', methods=['GET'])
 def check_progress():
-    return jsonify(progress=progress, reextractOptions=reextract_options)
+    return jsonify(progress=progress, reextractOptions=reextract_options, skippedBooks=skipped_books)
 
 # Re-extract route
 @app.route('/reextract', methods=['POST'])
@@ -99,4 +105,4 @@ def reextract():
     return jsonify(message=f"Re-extraction of {title} started. Check progress...")
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True)

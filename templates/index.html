@@ -6,6 +6,7 @@
     <title>Goodreads Quotes Extractor</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
 </head>
 <body>
     <header>
@@ -47,6 +48,8 @@
             </form>
             <div id="progress"></div>
             <div id="reextractOptions"></div>
+            <div id="skippedBooks"></div>
+            <div id="logMessages" class="log-container"></div>
             <div id="results">
                 <h2>Quotes</h2>
                 <table id="quotes-table">
@@ -76,6 +79,8 @@
             const resultsDiv = document.getElementById('results');
             const quotesTable = document.getElementById('quotes-table').getElementsByTagName('tbody')[0];
             const loadMoreButton = document.getElementById('load-more-button');
+            const skippedBooksDiv = document.getElementById('skippedBooks');
+            const logMessagesDiv = document.getElementById('logMessages');
             let offset = 0;
             const limit = 10;
             let totalCount = 0;
@@ -164,6 +169,11 @@
                     if (data.reextractOptions) {
                         document.getElementById('reextractOptions').innerHTML = data.reextractOptions;
                     }
+                    if (data.skippedBooks && data.skippedBooks.length > 0) {
+                        skippedBooksDiv.innerHTML = '<h2>Skipped Books</h2><ul>' + data.skippedBooks.map(book => `<li>${book}</li>`).join('') + '</ul>';
+                    } else {
+                        skippedBooksDiv.innerHTML = '';
+                    }
                 });
             }
 
@@ -186,6 +196,17 @@
                         bookSelect.add(option);
                     });
                 });
+
+            // Initialize Socket.IO
+            const socket = io();
+
+            // Listen for log messages
+            socket.on('log', function(data) {
+                const logMessage = document.createElement('p');
+                logMessage.innerText = data.message;
+                logMessagesDiv.appendChild(logMessage);
+                logMessagesDiv.scrollTop = logMessagesDiv.scrollHeight; // Auto-scroll to the bottom
+            });
         });
     </script>
 </body>

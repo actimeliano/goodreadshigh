@@ -145,3 +145,22 @@ form button:hover {
 .load-more button:hover {
     background: #77aaff;
 }
+
+.log-container {
+    max-height: 200px;
+    overflow-y: auto;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.log-container p {
+    margin: 0;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.log-container p:last-child {
+    border-bottom: none;
+}

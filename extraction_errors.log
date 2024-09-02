@@ -38,3 +38,90 @@ INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:42:19] "[36mGET /static/styles.css 
 INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:42:20] "GET /books HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:42:52] "POST /start_extraction HTTP/1.1" 200 -
 INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:42:52] "GET /check_progress HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:45:01] "GET /book?book_id=1&offset=0&limit=10 HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\drpm_\\App Quote Database\\extract_goodreads_quotes.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 950-704-102
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 950-704-102
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:46:50] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:46:50] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:46:50] "GET /books HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:46:53] "POST /start_extraction HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:46:53] "GET /check_progress HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:47:38] "GET /search?query=&offset=0&limit=10 HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 950-704-102
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:51:44] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:51:44] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:51:44] "GET /books HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:51:52] "POST /start_extraction HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:51:52] "GET /check_progress HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 950-704-102
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:55:04] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:55:04] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:55:04] "GET /socket.io/?EIO=4&transport=polling&t=P6pEtPv HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:55:04] "GET /books HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:55:04] "POST /socket.io/?EIO=4&transport=polling&t=P6pEtQd&sid=7nCRlErbRdn0hNUQAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:55:04] "GET /socket.io/?EIO=4&transport=polling&t=P6pEtQf&sid=7nCRlErbRdn0hNUQAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:55:04] "GET /socket.io/?EIO=4&transport=polling&t=P6pEtRH&sid=7nCRlErbRdn0hNUQAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:55:08] "POST /start_extraction HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:55:08] "GET /check_progress HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in 'C:\\Users\\drpm_\\App Quote Database\\extract_goodreads_quotes.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 950-704-102
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:23] "GET /socket.io/?EIO=4&transport=polling&t=P6pFOvt HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:23] "POST /socket.io/?EIO=4&transport=polling&t=P6pFPQ0&sid=Vw9QBz0B7V5afQ2cAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:23] "GET /socket.io/?EIO=4&transport=polling&t=P6pFPQ1&sid=Vw9QBz0B7V5afQ2cAAAA HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 950-704-102
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:33] "GET /socket.io/?EIO=4&transport=polling&t=P6pFRFo HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:33] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:33] "POST /socket.io/?EIO=4&transport=polling&t=P6pFRup&sid=ZfdULYgWneXvkhkfAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:33] "GET /socket.io/?EIO=4&transport=websocket&sid=ZfdULYgWneXvkhkfAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:33] "[36mGET /static/styles.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:34] "GET /books HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:34] "GET /socket.io/?EIO=4&transport=polling&t=P6pFRxq HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:34] "POST /socket.io/?EIO=4&transport=polling&t=P6pFR-E&sid=5u1yqX4WmUprhpAoAAAC HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:34] "GET /socket.io/?EIO=4&transport=polling&t=P6pFR-F&sid=5u1yqX4WmUprhpAoAAAC HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:57:34] "GET /socket.io/?EIO=4&transport=polling&t=P6pFR-w&sid=5u1yqX4WmUprhpAoAAAC HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:58:08] "POST /start_extraction HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 15:58:08] "GET /check_progress HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 950-704-102
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:05] "GET /socket.io/?EIO=4&transport=polling&t=P6pGE81 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:05] "POST /socket.io/?EIO=4&transport=polling&t=P6pGFaG&sid=M2Hm-oemqIy2MadMAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:05] "GET /socket.io/?EIO=4&transport=polling&t=P6pGFaH&sid=M2Hm-oemqIy2MadMAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:06] "GET /socket.io/?EIO=4&transport=websocket&sid=M2Hm-oemqIy2MadMAAAA HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:06] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:06] "GET /static/styles.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:06] "GET /socket.io/?EIO=4&transport=polling&t=P6pGFoV HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:06] "GET /books HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:06] "POST /socket.io/?EIO=4&transport=polling&t=P6pGFpO&sid=cef9o8S0StdYWjf8AAAC HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:06] "GET /socket.io/?EIO=4&transport=polling&t=P6pGFpP&sid=cef9o8S0StdYWjf8AAAC HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:06] "GET /socket.io/?EIO=4&transport=polling&t=P6pGFqb&sid=cef9o8S0StdYWjf8AAAC HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:08] "POST /start_extraction HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [02/Sep/2024 16:01:08] "GET /check_progress HTTP/1.1" 200 -

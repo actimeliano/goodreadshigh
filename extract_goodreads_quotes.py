@@ -8,9 +8,13 @@ from bs4 import BeautifulSoup
 import sqlite3
 import time
 import logging
+from flask_socketio import SocketIO
 
 # Initialize logging
 logging.basicConfig(filename='extraction_errors.log', level=logging.ERROR)
+
+# Initialize SocketIO
+socketio = SocketIO()
 
 # Initialize the database
 def init_db():
@@ -128,11 +132,13 @@ def extract_highlights_for_book(book_link, retries=3):
 
 # Function to extract and save highlights from all books on the Goodreads highlights page
 def extract_and_save_highlights(url, reextract_books=[]):
-    print("Extracting book links...")
+    socketio.emit('log', {'message': "Extracting book links..."})
     books = extract_book_links(url)
     
     conn = sqlite3.connect('goodreads_quotes.db')
     c = conn.cursor()
+    
+    skipped_books = []
     
     for book in books:
         # Check if the book is already in the database
@@ -140,20 +146,31 @@ def extract_and_save_highlights(url, reextract_books=[]):
         book_in_db = c.fetchone()
         
         if book_in_db and book['title'] not in reextract_books:
-            print(f"Skipping already extracted book: {book['title']} by {book['author']}")
+            message = f"Skipping already extracted book: {book['title']} by {book['author']}"
+            print(message)
+            socketio.emit('log', {'message': message})
+            skipped_books.append(f"{book['title']} by {book['author']}")
             continue
         
-        print(f"Extracting highlights for book: {book['title']} by {book['author']}")
+        message = f"Extracting highlights for book: {book['title']} by {book['author']}"
+        print(message)
+        socketio.emit('log', {'message': message})
         book['highlights'] = extract_highlights_for_book(book['link'])
         if book['highlights']:
             save_to_db(book)  # Save to database immediately after extracting highlights
     
     conn.close()
+    
+    if len(skipped_books) == len(books):
+        socketio.emit('log', {'message': "No books to extract quotes."})
+    
+    return skipped_books
 
 # Example usage
 if __name__ == "__main__":
     init_db()
     url = "https://www.goodreads.com/notes/31551289-daniel-pereira-de-melo?ref=rnlp"
     print("Starting extraction process...")
-    books_with_highlights = extract_and_save_highlights(url)
+    skipped_books = extract_and_save_highlights(url)
     print("Extraction process completed.")
+    print("Skipped books:", skipped_books)
