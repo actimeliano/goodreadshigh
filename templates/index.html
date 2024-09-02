@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goodreads Quotes Extractor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Goodreads Quotes Extractor</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li class="current"><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section id="showcase">
+        <div class="container">
+            <h1>Find Your Favorite Quotes</h1>
+            <p>Search for books, authors, or specific quotes from your Goodreads highlights.</p>
+        </div>
+    </section>
+    <section id="main">
+        <div class="container">
+            <h1>Search</h1>
+            <form id="search-form" action="/search" method="post">
+                <input type="text" name="query" placeholder="Search for books, authors, or quotes">
+                <button type="submit">Search</button>
+            </form>
+            <form id="book-form" action="/book" method="post">
+                <select name="book_id" id="book-select">
+                    <!-- Book options will be loaded here -->
+                </select>
+                <button type="submit">View Quotes</button>
+            </form>
+            <h1>Extract</h1>
+            <form id="extractForm">
+                <label for="goodreadsLink">Goodreads Link:</label>
+                <input type="text" id="goodreadsLink" name="goodreadsLink" required>
+                <button type="submit">Start Extraction</button>
+            </form>
+            <div id="progress"></div>
+            <div id="reextractOptions"></div>
+            <div id="results">
+                <h2>Quotes</h2>
+                <table id="quotes-table">
+                    <thead>
+                        <tr>
+                            <th>Quote</th>
+                            <th>Book</th>
+                            <th>Author</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Quotes will be loaded here -->
+                    </tbody>
+                </table>
+                <div class="load-more">
+                    <button id="load-more-button">Load More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('search-form');
+            const bookForm = document.getElementById('book-form');
+            const extractForm = document.getElementById('extractForm');
+            const bookSelect = document.getElementById('book-select');
+            const resultsDiv = document.getElementById('results');
+            const quotesTable = document.getElementById('quotes-table').getElementsByTagName('tbody')[0];
+            const loadMoreButton = document.getElementById('load-more-button');
+            let offset = 0;
+            const limit = 10;
+            let totalCount = 0;
+            let isBookQuotes = false;
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                offset = 0;
+                quotesTable.innerHTML = '';
+                isBookQuotes = false;
+                loadQuotes();
+            });
+
+            bookForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                offset = 0;
+                quotesTable.innerHTML = '';
+                isBookQuotes = true;
+                loadBookQuotes();
+            });
+
+            extractForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const link = document.getElementById('goodreadsLink').value;
+                $.post('/start_extraction', { link: link }, function(data) {
+                    document.getElementById('progress').innerHTML = data.message;
+                    checkProgress();
+                });
+            });
+
+            loadMoreButton.addEventListener('click', function() {
+                if (isBookQuotes) {
+                    loadBookQuotes();
+                } else {
+                    loadQuotes();
+                }
+            });
+
+            function loadQuotes() {
+                const query = form.query.value;
+                fetch(`/search?query=${query}&offset=${offset}&limit=${limit}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.quotes.forEach(quote => {
+                            const row = quotesTable.insertRow();
+                            row.insertCell(0).innerText = quote.highlight;
+                            row.insertCell(1).innerText = quote.title;
+                            row.insertCell(2).innerText = quote.author;
+                        });
+                        offset += limit;
+                        totalCount = data.total_count;
+                        updateLoadMoreButton();
+                    });
+            }
+
+            function loadBookQuotes() {
+                const bookId = bookSelect.value;
+                fetch(`/book?book_id=${bookId}&offset=${offset}&limit=${limit}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        data.quotes.forEach(quote => {
+                            const row = quotesTable.insertRow();
+                            row.insertCell(0).innerText = quote.highlight;
+                            row.insertCell(1).innerText = quote.title;
+                            row.insertCell(2).innerText = quote.author;
+                        });
+                        offset += limit;
+                        totalCount = data.total_count;
+                        updateLoadMoreButton();
+                    });
+            }
+
+            function updateLoadMoreButton() {
+                const remaining = totalCount - offset;
+                if (remaining > 0) {
+                    loadMoreButton.innerText = `Load More (${remaining} remaining)`;
+                    loadMoreButton.style.display = 'block';
+                } else {
+                    loadMoreButton.style.display = 'none';
+                }
+            }
+
+            function checkProgress() {
+                $.get('/check_progress', function(data) {
+                    document.getElementById('progress').innerHTML = data.progress;
+                    if (data.reextractOptions) {
+                        document.getElementById('reextractOptions').innerHTML = data.reextractOptions;
+                    }
+                });
+            }
+
+            $(document).on('click', '.reextract', function() {
+                const bookTitle = $(this).data('title');
+                $.post('/reextract', { title: bookTitle }, function(data) {
+                    document.getElementById('progress').innerHTML = data.message;
+                    checkProgress();
+                });
+            });
+
+            // Load book options
+            fetch('/books')
+                .then(response => response.json())
+                .then(data => {
+                    data.books.forEach(book => {
+                        const option = document.createElement('option');
+                        option.value = book.id;
+                        option.text = `${book.title} by ${book.author}`;
+                        bookSelect.add(option);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

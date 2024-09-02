@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Goodreads Quotes Extractor</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Goodreads Quotes Extractor</h1>
+    <form id="extractForm">
+        <label for="goodreadsLink">Goodreads Link:</label>
+        <input type="text" id="goodreadsLink" name="goodreadsLink" required>
+        <button type="submit">Start Extraction</button>
+    </form>
+    <div id="progress"></div>
+    <div id="reextractOptions"></div>
+
+    <script>
+        $(document).ready(function() {
+            $('#extractForm').on('submit', function(event) {
+                event.preventDefault();
+                const link = $('#goodreadsLink').val();
+                $.post('/start_extraction', { link: link }, function(data) {
+                    $('#progress').html(data.message);
+                    checkProgress();
+                });
+            });
+
+            function checkProgress() {
+                $.get('/check_progress', function(data) {
+                    $('#progress').html(data.progress);
+                    if (data.reextractOptions) {
+                        $('#reextractOptions').html(data.reextractOptions);
+                    }
+                });
+            }
+
+            $(document).on('click', '.reextract', function() {
+                const bookTitle = $(this).data('title');
+                $.post('/reextract', { title: bookTitle }, function(data) {
+                    $('#progress').html(data.message);
+                    checkProgress();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

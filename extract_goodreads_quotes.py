@@ -150,10 +150,10 @@ def extract_and_save_highlights(url, reextract_books=[]):
     
     conn.close()
 
-# Example usage, replace url with your Highlights and Notes link
+# Example usage
 if __name__ == "__main__":
     init_db()
-    url = "https://www.goodreads.com/notes/*********"   
+    url = "https://www.goodreads.com/notes/31551289-daniel-pereira-de-melo?ref=rnlp"
     print("Starting extraction process...")
     books_with_highlights = extract_and_save_highlights(url)
     print("Extraction process completed.")

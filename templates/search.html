@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77aaff 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        header .highlight, header .current a {
+            color: #77aaff;
+            font-weight: bold;
+        }
+        header a:hover {
+            color: #77aaff;
+            font-weight: bold;
+        }
+        #main {
+            padding: 20px;
+            background: #fff;
+            color: #333;
+        }
+        #main h1 {
+            text-align: center;
+        }
+        #main ul {
+            list-style: none;
+            padding: 0;
+        }
+        #main li {
+            background: #f4f4f4;
+            margin: 10px 0;
+            padding: 10px;
+            border: #ccc 1px solid;
+        }
+        #main a {
+            text-decoration: none;
+            color: #333;
+        }
+        #main a:hover {
+            color: #77aaff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Goodreads Quotes Search</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <section id="main">
+        <div class="container">
+            <h1>Search Results for "{{ query }}"</h1>
+            <h2>Books</h2>
+            <ul>
+                {% for book in books %}
+                    <li>{{ book.title }} by {{ book.author }}</li>
+                {% endfor %}
+            </ul>
+            <h2>Quotes</h2>
+            <ul>
+                {% for highlight in highlights %}
+                    <li>"{{ highlight.highlight }}" - {{ highlight.title }} by {{ highlight.author }}</li>
+                {% endfor %}
+            </ul>
+            <a href="/">Back to Search</a>
+        </div>
+    </section>
+</body>
+</html>
